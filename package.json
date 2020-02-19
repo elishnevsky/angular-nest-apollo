@@ -54,6 +54,7 @@
     "graphql-tools": "^4.0.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.0",
+    "type-graphql": "^0.17.6",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
