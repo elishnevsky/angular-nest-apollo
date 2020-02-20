@@ -25,4 +25,7 @@ export class Book {
 
   @Field(type => Author)
   author: Author;
+
+  @Field(type => Int)
+  likes: number;
 }
