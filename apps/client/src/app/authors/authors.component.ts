@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Author, AllBooksGql, LikeBookGql } from '../graphql';
 
 @Component({
   selector: 'asgl-authors',
@@ -8,28 +9,20 @@ import gql from 'graphql-tag';
   styleUrls: ['./authors.component.css']
 })
 export class AuthorsComponent implements OnInit {
-  authors: any[];
+  authors$: Observable<Author[]>;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private allBooksGql: AllBooksGql, private likeBookGql: LikeBookGql) { }
 
-  ngOnInit(): void {
-    this.apollo
-      .watchQuery({
-        query: gql`
-          query {
-            authors {
-              id
-              name
-              books {
-                id
-                title
-              }
-            }
-          }
-        `
-      })
-      .valueChanges.subscribe(result => {
-        this.authors = (result.data as any).authors;
-      });
+  ngOnInit() {
+    this.authors$ = this.allBooksGql.watch().valueChanges.pipe(
+      map(result => result.data.authors)
+    );
+  }
+
+  likeBook(id: number) {
+    this.likeBookGql.mutate({
+      bookId: id
+    })
+    .subscribe();
   }
 }

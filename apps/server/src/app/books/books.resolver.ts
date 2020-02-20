@@ -1,6 +1,7 @@
 import { Query, Resolver, Args, ResolveProperty, Parent, Mutation } from "@nestjs/graphql";
 import { books, authors } from '../data';
 import { Book, Author } from './models';
+import { Int } from 'type-graphql';
 
 @Resolver(of => Book)
 export class BooksResolver {
@@ -10,13 +11,13 @@ export class BooksResolver {
   }
 
   @Query(returns => Book, { name: 'book' })
-  getBookById(@Args('id') id: number) {
+  getBookById(@Args({ name: 'id', type: () => Int }) id: number) {
     return books.find(b => b.id === id);
   }
 
   @Mutation(returns => Book)
-  likeBook(@Args('id') id: number) {
-    const book = this.getBookById(id);
+  likeBook(@Args({ name: 'id', type: () => Int }) id: number) {
+    const book = this.getBookById(id)
     book.likes += 1;
     return book;
   }

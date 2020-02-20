@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthorsComponent } from './authors/authors.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthorsComponent],
+  declarations: [AppComponent, AuthorsComponent ],
   imports: [BrowserModule, GraphQLModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
