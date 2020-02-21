@@ -18,7 +18,8 @@ export class BooksResolver {
   @Mutation(returns => Book)
   likeBook(@Args({ name: 'id', type: () => Int }) id: number) {
     const book = this.getBookById(id)
-    book.likes += 1;
+    // if (Math.random() >= 0.5)
+      book.likes += 1;
     return book;
   }
 

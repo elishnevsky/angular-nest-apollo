@@ -5,7 +5,7 @@
     <ul>
       <li *ngFor="let b of a.books">
         {{ b.title }} ({{ b.likes }} likes)
-        <a href="#" (click)="likeBook(b.id)">Like</a>
+        <a href="#" (click)="likeBook(b)">Like</a>
       </li>
     </ul>
   </li>
