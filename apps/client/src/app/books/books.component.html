@@ -1,0 +1,12 @@
+<h1>All Books</h1>
+<div *ngFor="let b of books$ | async" class="book">
+  <div class="title">
+    {{ b.title }}
+  </div>
+  <div class="author">
+    {{ b.author.name }}
+  </div>
+  <div class="likes">
+    {{ b.likes }} likes | <a href="#" (click)="likeBook(b)">Like</a>
+  </div>
+</div>

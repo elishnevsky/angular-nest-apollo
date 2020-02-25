@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Query, Mutation } from 'apollo-angular';
+import { Query, Mutation, Subscription } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 export interface Book {
@@ -17,20 +17,19 @@ export interface Author {
 }
 
 export interface Response {
-  authors: Author[]
+  books: Book[]
 }
 
 @Injectable({ providedIn: 'root' })
 export class AllBooksGql extends Query<Response> {
   document = gql`
     query allBooks {
-      authors {
+      books {
         id
-        name
-        books {
-          id
-          title
-          likes
+        title
+        likes
+        author {
+          name
         }
       }
     }
@@ -42,6 +41,19 @@ export class LikeBookGql extends Mutation<Book> {
   document = gql`
     mutation likeBook($bookId: Int!) {
       likeBook(id: $bookId) {
+        id
+        title
+        likes
+      }
+    }
+  `;
+}
+
+@Injectable({ providedIn: 'root' })
+export class BookLikedGql extends Subscription<Book> {
+  document = gql`
+    subscription bookLiked {
+      bookLiked {
         id
         title
         likes

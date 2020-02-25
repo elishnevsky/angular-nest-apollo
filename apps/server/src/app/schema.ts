@@ -15,6 +15,7 @@ export const typeDefs = `
     title: String!
     authorId: Int!
     author: Author!
+    likes: Int
   }
   type Query {
     authors: [Author]
@@ -23,7 +24,7 @@ export const typeDefs = `
     book(id: Int!): Book
   }
   type Mutation {
-    updateAuthor(author: AuthorInput!): Author
+    likeBook(id: Int!): Book
   }
 `;
 
@@ -56,10 +57,10 @@ export const resolvers = {
   },
 
   Mutation: {
-    updateAuthor(obg, args) {
-      const author = authors.find(a => a.id === args.author.id);
-      author.name = args.author.name;
-      return author;
+    likeBook(obg, args: { id: number }) {
+      const book = books.find(b => b.id === args.id);
+      book.likes += 1;
+      return book;
     }
   }
 };
