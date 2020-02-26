@@ -19,5 +19,6 @@ export class BooksComponent implements OnInit {
 
   likeBook(book: Book) {
     this.booksService.likeBook(book).subscribe(({data}) => console.log(data));
+    return false;
   }
 }
